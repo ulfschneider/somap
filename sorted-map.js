@@ -14,6 +14,7 @@ var SortedMap = function(comparator) {
         }
     }
 
+
     this.Node = function(key, value) {
         this.key = key;
         this.value = value;
