@@ -139,13 +139,13 @@ test('create, get and remove many', () => {
     var randomInt = function(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-    var count = 1000;
+    var many = 10000;
     var keys = new Set();
     map.clear();
 
     //create
-    for (var i = 0; i < count; i++) {
-        var random = randomInt(0, count);
+    for (var i = 0; i < many; i++) {
+        var random = randomInt(0, many);
         keys.add(random);
         map.set(random, '' + random + '-value');
     }
