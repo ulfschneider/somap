@@ -61,6 +61,8 @@ var changeTestData = function(data, key, value) {
     return newData;
 }
 
+//tests
+
 beforeEach(() => {
     for (var entry of DATA_INSERT_ORDER) {
         map.set(entry[0], entry[1]);
