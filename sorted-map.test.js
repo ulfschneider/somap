@@ -76,6 +76,16 @@ afterEach(() => {
     expect(map.toString()).toBe(makeMapString([]));
 });
 
+test('test the helper functions', () => {
+    expect(makeMapString(DATA_SORTED_ORDER)).toBe('SortedMap 7 { a-key => a-value, b-key => b-value, c-key => c-value, d-key => d-value, x-key => x-value, y-key => y-value, z-key => z-value }');
+
+    expect(makeMapString(DATA_INSERT_ORDER)).toBe('SortedMap 7 { x-key => x-value, z-key => z-value, y-key => y-value, b-key => b-value, a-key => a-value, c-key => c-value, d-key => d-value }');
+
+    expect(makeMapString(removeTestData(DATA_SORTED_ORDER, 'x-key'))).toBe('SortedMap 6 { a-key => a-value, b-key => b-value, c-key => c-value, d-key => d-value, y-key => y-value, z-key => z-value }');
+
+    expect(makeMapString(changeTestData(DATA_SORTED_ORDER, 'x-key', 'another x value'))).toBe('SortedMap 7 { a-key => a-value, b-key => b-value, c-key => c-value, d-key => d-value, x-key => another x value, y-key => y-value, z-key => z-value }');
+});
+
 test('delete root x', () => {
     map.delete('x-key');
 
