@@ -6,7 +6,7 @@ The tests for this code require `npm` and `Jest` to be installed on the machine.
 
 from inside the working directory.
 
-The working directory contains a `pre-commit.sh` script. When you create a symbol link to the git pre commit hook via
+The working directory contains a `pre-commit.sh` script. When you create a symbol link to the git pre-commit hook via
 
     ln -s ../../pre-commit.sh .git/hooks/pre-commit
 

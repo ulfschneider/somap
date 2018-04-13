@@ -1,4 +1,4 @@
-var SortedMap = function(comparator) {
+var SortedMap = function(iterable, comparator) {
     this.size = 0;
     this.root = null;
 
@@ -19,6 +19,14 @@ var SortedMap = function(comparator) {
         this.value = value;
         this.left = null;
         this.right = null;
+    }
+
+    if (iterable) {
+        var next = iterable.next();
+        while (!next.done) {
+            this.add(next.value[0], next.value[1]);
+            next = iterable.next();
+        }
     }
 }
 
@@ -142,13 +150,14 @@ SortedMap.prototype.forEach = function(callback, thisArg) {
 }
 
 SortedMap.prototype.entries = function() {
-    var entries = [];
+
+    var i = 0,
+        entries = [];
     this.forEach(function(value, key) {
         entries.push([key, value]);
     });
 
     return {
-        i: 0,
         next: function() {
             return i < entries.length ? {
                 done: false,
@@ -160,9 +169,9 @@ SortedMap.prototype.entries = function() {
     }
 }
 
-SortedMap.prototype[Symbol.iterator] = this.entries;
-
-
+SortedMap.prototype[Symbol.iterator] = function() {
+    return this.entries();
+}
 
 SortedMap.prototype.toString = function() {
     var size = this.size;
