@@ -24,10 +24,11 @@ var SortedMap = function(iterable, comparator) {
     }
 
     if (iterable) {
-        var next = iterable.next();
+        var iterator = iterable[Symbol.iterator]();
+        var next = iterator.next();
         while (!next.done) {
-            this.add(next.value[0], next.value[1]);
-            next = iterable.next();
+            this.set(next.value[0], next.value[1]);
+            next = iterator.next();
         }
     }
 }

@@ -188,29 +188,34 @@ test('unsuccessful get', () => {
 });
 
 test('iterating for..of map', () => {
-    var size = 0;
+    var i = 0;
     for (var entry of map) {
-        expect(entry[0]).toBe(DATA_SORTED_ORDER[size][0]);
-        expect(entry[1]).toBe(DATA_SORTED_ORDER[size][1]);
-        size++;
+        expect(entry[0]).toBe(DATA_SORTED_ORDER[i][0]);
+        expect(entry[1]).toBe(DATA_SORTED_ORDER[i][1]);
+        i++;
     }
-    expect(size).toBe(7);
+    expect(i).toBe(DATA_SORTED_ORDER.length);
 });
 
 test('iterator for..of map.entries()', () => {
-    var size = 0;
+    var i = 0;
     for (var entry of map.entries()) {
-        expect(entry[0]).toBe(DATA_SORTED_ORDER[size][0]);
-        expect(entry[1]).toBe(DATA_SORTED_ORDER[size][1]);
-        size++;
+        expect(entry[0]).toBe(DATA_SORTED_ORDER[i][0]);
+        expect(entry[1]).toBe(DATA_SORTED_ORDER[i][1]);
+        i++;
     }
-    expect(size).toBe(7);
+    expect(i).toBe(DATA_SORTED_ORDER.length);
 });
 
 
 //iterating map.keys()
 //iterating map.values()
 //constructors
+
+test('construct with array', () => {
+    var map = new SortedMap(DATA_INSERT_ORDER);
+    expect(map.toString()).toBe(makeMapString(DATA_SORTED_ORDER));
+});
 
 test('create, get and remove many', () => {
     var randomInt = function(min, max) {
