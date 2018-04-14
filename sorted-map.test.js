@@ -92,6 +92,10 @@ test('change test data', () => {
 });
 
 //test the functions
+test('species', () => {
+    expect(map instanceof SortedMap).toBeTruthy();
+});
+
 test('delete root x', () => {
     map.delete('x-key');
 

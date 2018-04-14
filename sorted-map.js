@@ -1,6 +1,6 @@
 /* minifyOnSave, filenamePattern: ./$1.min.$2 */
 
-var SortedMap = function(iterable, comparator) {
+function SortedMap(iterable, comparator) {
     this.size = 0;
     this.root = null;
 
@@ -32,6 +32,8 @@ var SortedMap = function(iterable, comparator) {
         }
     }
 }
+
+SortedMap[Symbol.species] = SortedMap;
 
 SortedMap.prototype.set = function(key, value) {
     var tree = this;
@@ -240,9 +242,11 @@ SortedMap.prototype[Symbol.iterator] = function() {
     return this.entries();
 }
 
+SortedMap.prototype[Symbol.toStringTag] = 'SortedMap';
+
 SortedMap.prototype.toString = function() {
     var size = this.size;
-    var result = 'SortedMap ' + size + ' {';
+    var result = this[Symbol.toStringTag] + ' ' + size + ' {';
 
     this.forEach(function(value, key, i) {
         result += ' ' + key + ' => ' + value;
@@ -253,5 +257,4 @@ SortedMap.prototype.toString = function() {
 }
 
 //exports
-
 module.exports = SortedMap;
