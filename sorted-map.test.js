@@ -205,6 +205,18 @@ test('iterating for..of map.entries()', () => {
         i++;
     }
     expect(i).toBe(DATA_SORTED_ORDER.length);
+
+    i = 0;
+    var iterator = map.entries();
+    var next = iterator.next();
+    while (!next.done) {
+        expect(next.value[0]).toBe(DATA_SORTED_ORDER[i][0]);
+        expect(next.value[1]).toBe(DATA_SORTED_ORDER[i][1]);
+        i++;
+        next = iterator.next();
+    }
+    expect(i).toBe(DATA_SORTED_ORDER.length);
+
 });
 
 test('iterating for..of map.keys()', () => {
@@ -214,6 +226,17 @@ test('iterating for..of map.keys()', () => {
         i++;
     }
     expect(i).toBe(DATA_SORTED_ORDER.length);
+
+    i = 0;
+    var iterator = map.keys();
+    var next = iterator.next();
+    while (!next.done) {
+        expect(next.value).toBe(DATA_SORTED_ORDER[i][0]);
+        i++;
+        next = iterator.next();
+    }
+    expect(i).toBe(DATA_SORTED_ORDER.length);
+
 });
 
 test('iterating for..of map.values()', () => {
@@ -221,6 +244,16 @@ test('iterating for..of map.values()', () => {
     for (var entry of map.values()) {
         expect(entry).toBe(DATA_SORTED_ORDER[i][1]);
         i++;
+    }
+    expect(i).toBe(DATA_SORTED_ORDER.length);
+
+    i = 0;
+    var iterator = map.values();
+    var next = iterator.next();
+    while (!next.done) {
+        expect(next.value).toBe(DATA_SORTED_ORDER[i][1]);
+        i++;
+        next = iterator.next();
     }
     expect(i).toBe(DATA_SORTED_ORDER.length);
 });
