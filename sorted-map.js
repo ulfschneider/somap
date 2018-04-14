@@ -1,3 +1,5 @@
+/* minifyOnSave, filenamePattern: ./$1.min.$2 */
+
 var SortedMap = function(iterable, comparator) {
     this.size = 0;
     this.root = null;
@@ -66,7 +68,7 @@ SortedMap.prototype.set = function(key, value) {
 }
 
 
-SortedMap.prototype.delete = function(key) {
+SortedMap.prototype['delete'] = function(key) {
     var tree = this;
 
     var min = function(node) {
@@ -151,6 +153,7 @@ SortedMap.prototype.forEach = function(callback, thisArg) {
 
 SortedMap.prototype.entries = function() {
 
+
     var i = 0,
         entries = [];
     this.forEach(function(value, key) {
@@ -163,6 +166,15 @@ SortedMap.prototype.entries = function() {
                 done: false,
                 value: entries[i++],
             } : {
+                done: true
+            }
+        },
+        [Symbol.iterator]: function() {
+            return this;
+        },
+        return: function() {
+            i = entries.length;
+            return {
                 done: true
             }
         }
