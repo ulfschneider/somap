@@ -197,7 +197,7 @@ test('iterating for..of map', () => {
     expect(i).toBe(DATA_SORTED_ORDER.length);
 });
 
-test('iterator for..of map.entries()', () => {
+test('iterating for..of map.entries()', () => {
     var i = 0;
     for (var entry of map.entries()) {
         expect(entry[0]).toBe(DATA_SORTED_ORDER[i][0]);
@@ -207,10 +207,23 @@ test('iterator for..of map.entries()', () => {
     expect(i).toBe(DATA_SORTED_ORDER.length);
 });
 
+test('iterating for..of map.keys()', () => {
+    var i = 0;
+    for (var entry of map.keys()) {
+        expect(entry).toBe(DATA_SORTED_ORDER[i][0]);
+        i++;
+    }
+    expect(i).toBe(DATA_SORTED_ORDER.length);
+});
 
-//iterating map.keys()
-//iterating map.values()
-//constructors
+test('iterating for..of map.values()', () => {
+    var i = 0;
+    for (var entry of map.values()) {
+        expect(entry).toBe(DATA_SORTED_ORDER[i][1]);
+        i++;
+    }
+    expect(i).toBe(DATA_SORTED_ORDER.length);
+});
 
 test('construct with array', () => {
     var map = new SortedMap(DATA_INSERT_ORDER);

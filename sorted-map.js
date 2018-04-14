@@ -153,12 +153,66 @@ SortedMap.prototype.forEach = function(callback, thisArg) {
 }
 
 SortedMap.prototype.entries = function() {
-
-
-    var i = 0,
-        entries = [];
+    var i = 0;
+    var entries = [];
     this.forEach(function(value, key) {
         entries.push([key, value]);
+    });
+
+    return {
+        next: function() {
+            return i < entries.length ? {
+                done: false,
+                value: entries[i++],
+            } : {
+                done: true
+            }
+        },
+        [Symbol.iterator]: function() {
+            return this;
+        },
+        return: function() {
+            i = entries.length;
+            return {
+                done: true
+            }
+        }
+    }
+}
+
+SortedMap.prototype.keys = function() {
+    var i = 0;
+    var entries = [];
+    this.forEach(function(value, key) {
+        entries.push(key);
+    });
+
+    return {
+        next: function() {
+            return i < entries.length ? {
+                done: false,
+                value: entries[i++],
+            } : {
+                done: true
+            }
+        },
+        [Symbol.iterator]: function() {
+            return this;
+        },
+        return: function() {
+            i = entries.length;
+            return {
+                done: true
+            }
+        }
+    }
+}
+
+SortedMap.prototype.values = function() {
+    var i = 0;
+    var entries = [];
+    this.forEach(function(value, key) {
+        entries.push(value);
     });
 
     return {
