@@ -1,5 +1,3 @@
-/* minifyOnSave, filenamePattern: ./$1.min.$2 */
-
 function SortedMap(iterable, comparator) {
     this.size = 0;
     this.root = null;
@@ -34,6 +32,12 @@ function SortedMap(iterable, comparator) {
 }
 
 SortedMap[Symbol.species] = SortedMap;
+
+SortedMap.prototype[Symbol.iterator] = function() {
+    return this.entries();
+}
+
+SortedMap.prototype[Symbol.toStringTag] = 'SortedMap';
 
 SortedMap.prototype.set = function(key, value) {
     var tree = this;
@@ -238,12 +242,6 @@ SortedMap.prototype.values = function() {
     }
 }
 
-SortedMap.prototype[Symbol.iterator] = function() {
-    return this.entries();
-}
-
-SortedMap.prototype[Symbol.toStringTag] = 'SortedMap';
-
 SortedMap.prototype.toString = function() {
     var size = this.size;
     var result = this[Symbol.toStringTag] + ' ' + size + ' {';
@@ -255,6 +253,44 @@ SortedMap.prototype.toString = function() {
     result += ' }';
     return result;
 }
+
+SortedMap.prototype.isEmpty = function() {
+    return this.size == 0;
+}
+
+SortedMap.prototype.min = function() {
+    var node = this.root;
+    while (node && node.left) {
+        node = node.left;
+    }
+    if (node) {
+        return {
+            key: node.key,
+            value: node.value
+        }
+    } else {
+        return null;
+    }
+}
+
+SortedMap.prototype.max = function() {
+    var node = this.root;
+    while (node && node.right) {
+        node = node.right;
+    }
+    if (node) {
+        return {
+            key: node.key,
+            value: node.value
+        }
+    } else {
+        return null;
+    }
+
+}
+
+
+//TODO min max
 
 //exports
 module.exports = SortedMap;

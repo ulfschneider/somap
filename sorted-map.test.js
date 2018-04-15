@@ -297,3 +297,35 @@ test('create, get and remove many', () => {
     });
     expect(map.size).toBe(0);
 });
+
+test('is empty', () => {
+    expect(map.size > 0).toBeTruthy();
+    expect(map.isEmpty()).toBeFalsy();
+
+    map.clear();
+
+    expect(map.size == 0).toBeTruthy();
+    expect(map.isEmpty()).toBeTruthy();
+});
+
+test('min', () => {
+    expect(map.min()).toEqual({
+        key: 'a-key',
+        value: 'a-value'
+    });
+
+    map.clear();
+
+    expect(map.min()).toBeNull();
+});
+
+test('max', () => {
+    expect(map.max()).toEqual({
+        key: 'z-key',
+        value: 'z-value'
+    });
+
+    map.clear();
+
+    expect(map.max()).toBeNull();
+});
