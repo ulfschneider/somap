@@ -286,11 +286,7 @@ SortedMap.prototype.max = function() {
     } else {
         return null;
     }
-
 }
-
-
-//TODO min max
 
 //exports
 module.exports = SortedMap;
