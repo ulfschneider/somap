@@ -148,10 +148,11 @@ SoMap.prototype.get = function(key) {
 SoMap.prototype.forEach = function(callback, thisArg) {
     //callback with param: value, key, index, thisArg
     var index = 0;
+    var map = this;
     var inOrderTraversal = function(node) {
         if (node) {
             inOrderTraversal(node.left);
-            callback(node.value, node.key, this, index, thisArg);
+            callback(node.value, node.key, map, index, thisArg);
             index++;
             inOrderTraversal(node.right);
         }

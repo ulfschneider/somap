@@ -303,6 +303,8 @@ test('iterating for..of map.values()', () => {
         .toBe(DATA_SORTED_ORDER.length);
 });
 
+//TODO test forEach
+
 test('construct with array', () => {
     var map = new SoMap(DATA_INSERT_ORDER);
     expect(map.toString())
