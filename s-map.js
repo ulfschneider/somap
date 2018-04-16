@@ -1,3 +1,5 @@
+'use strict'
+
 function SortedMap(iterable, comparator) {
     this.size = 0;
     this.root = null;
@@ -289,8 +291,6 @@ SortedMap.prototype.max = function() {
 
 }
 
-
-//TODO min max
 
 //exports
 module.exports = SortedMap;

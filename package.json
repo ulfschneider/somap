@@ -1,12 +1,16 @@
 {
-    "name": "sorted-map",
+    "name": "s-map",
     "version": "0.1.0",
-    "description": "A sorted map",
-    "main": "sorted-map.js",
+    "description": "A sorted map, implemented as a binary search tree",
+    "main": "s-map.js",
     "scripts": {
         "test": "jest"
     },
     "author": "Ulf Schneider",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ulfschneider/sorted-map.git"
+    },
     "license": "MIT",
     "devDependencies": {
         "jest": "^22.4.3"
