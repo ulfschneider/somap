@@ -151,7 +151,7 @@ SoMap.prototype.forEach = function(callback, thisArg) {
     var inOrderTraversal = function(node) {
         if (node) {
             inOrderTraversal(node.left);
-            callback(node.value, node.key, index, thisArg);
+            callback(node.value, node.key, this, index, thisArg);
             index++;
             inOrderTraversal(node.right);
         }
@@ -248,7 +248,7 @@ SoMap.prototype.toString = function() {
     var size = this.size;
     var result = this[Symbol.toStringTag] + ' ' + size + ' {';
 
-    this.forEach(function(value, key, i) {
+    this.forEach(function(value, key, map, i) {
         result += ' ' + key + ' => ' + value;
         result += i < size - 1 ? ',' : '';
     });
