@@ -1,4 +1,4 @@
-const SortedMap = require('./s-map');
+const SortedMap = require('./somap');
 var map = new SortedMap();
 
 var DATA_INSERT_ORDER = [

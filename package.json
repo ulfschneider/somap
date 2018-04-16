@@ -1,8 +1,8 @@
 {
-    "name": "s-map",
+    "name": "somap",
     "version": "0.1.0",
     "description": "A sorted map, implemented as a binary search tree",
-    "main": "s-map.js",
+    "main": "somap.js",
     "scripts": {
         "test": "jest"
     },
