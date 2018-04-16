@@ -9,7 +9,7 @@
     "author": "Ulf Schneider",
     "repository": {
         "type": "git",
-        "url": "https://github.com/ulfschneider/sorted-map.git"
+        "url": "https://github.com/ulfschneider/somap.git"
     },
     "license": "MIT",
     "devDependencies": {
