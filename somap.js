@@ -42,23 +42,23 @@ SoMap.prototype[Symbol.iterator] = function() {
 SoMap.prototype[Symbol.toStringTag] = 'SoMap';
 
 SoMap.prototype.set = function(key, value) {
-    var tree = this;
+    var map = this;
 
     var insert = function(parent, node) {
         if (parent == null) {
-            //empty tree
-            tree.root = node;
-            tree.size = 1;
-        } else if (tree.compare(parent.key, node.key) == 0) {
+            //empty map
+            map.root = node;
+            map.size = 1;
+        } else if (map.compare(parent.key, node.key) == 0) {
             //same key, replace only value
             parent.value = node.value;
-        } else if (tree.compare(node.key, parent.key) < 0) {
+        } else if (map.compare(node.key, parent.key) < 0) {
             //follow left path
             if (parent.left) {
                 return insert(parent.left, node);
             } else {
                 parent.left = node;
-                tree.size++;
+                map.size++;
             }
         } else {
             //follow right path
@@ -66,19 +66,19 @@ SoMap.prototype.set = function(key, value) {
                 return insert(parent.right, node);
             } else {
                 parent.right = node;
-                tree.size++;
+                map.size++;
             }
         }
         return node;
     }
 
-    var node = new tree.Node(key, value);
-    insert(tree.root, node);
+    var node = new map.Node(key, value);
+    insert(map.root, node);
 }
 
 
 SoMap.prototype['delete'] = function(key) {
-    var tree = this;
+    var map = this;
 
     var min = function(node) {
         if (node) {
@@ -93,16 +93,16 @@ SoMap.prototype['delete'] = function(key) {
 
     var del = function(node, key) {
         if (node) {
-            if (tree.compare(key, node.key) > 0) {
+            if (map.compare(key, node.key) > 0) {
                 node.right = del(node.right, key);
-            } else if (tree.compare(key, node.key) < 0) {
+            } else if (map.compare(key, node.key) < 0) {
                 node.left = del(node.left, key);
-            } else if (tree.compare(key, node.key) == 0) {
+            } else if (map.compare(key, node.key) == 0) {
                 if (!node.left) {
-                    tree.size--;
+                    map.size--;
                     return node.right
                 } else if (!node.right) {
-                    tree.size--;
+                    map.size--;
                     return node.left;
                 } else {
                     var m = min(node.right);
@@ -118,7 +118,7 @@ SoMap.prototype['delete'] = function(key) {
         }
     }
 
-    tree.root = del(tree.root, key);
+    map.root = del(map.root, key);
 }
 
 SoMap.prototype.clear = function() {
@@ -131,14 +131,14 @@ SoMap.prototype.has = function(key) {
 }
 
 SoMap.prototype.get = function(key) {
-    var tree = this;
+    var map = this;
     var node = this.root;
     while (node) {
-        if (tree.compare(node.key, key) < 0) {
+        if (map.compare(node.key, key) < 0) {
             node = node.right;
-        } else if (tree.compare(node.key, key) > 0) {
+        } else if (map.compare(node.key, key) > 0) {
             node = node.left;
-        } else if (tree.compare(node.key, key) == 0) {
+        } else if (map.compare(node.key, key) == 0) {
             return node.value;
         }
     }
