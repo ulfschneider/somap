@@ -1,6 +1,6 @@
 'use strict'
 
-function SortedMap(iterable, comparator) {
+function SoMap(iterable, comparator) {
     this.size = 0;
     this.root = null;
 
@@ -33,15 +33,15 @@ function SortedMap(iterable, comparator) {
     }
 }
 
-SortedMap[Symbol.species] = SortedMap;
+SoMap[Symbol.species] = SoMap;
 
-SortedMap.prototype[Symbol.iterator] = function() {
+SoMap.prototype[Symbol.iterator] = function() {
     return this.entries();
 }
 
-SortedMap.prototype[Symbol.toStringTag] = 'SortedMap';
+SoMap.prototype[Symbol.toStringTag] = 'SoMap';
 
-SortedMap.prototype.set = function(key, value) {
+SoMap.prototype.set = function(key, value) {
     var tree = this;
 
     var insert = function(parent, node) {
@@ -77,7 +77,7 @@ SortedMap.prototype.set = function(key, value) {
 }
 
 
-SortedMap.prototype['delete'] = function(key) {
+SoMap.prototype['delete'] = function(key) {
     var tree = this;
 
     var min = function(node) {
@@ -121,16 +121,16 @@ SortedMap.prototype['delete'] = function(key) {
     tree.root = del(tree.root, key);
 }
 
-SortedMap.prototype.clear = function() {
+SoMap.prototype.clear = function() {
     this.size = 0;
     this.root = null;
 }
 
-SortedMap.prototype.has = function(key) {
+SoMap.prototype.has = function(key) {
     return this.get(key) != null;
 }
 
-SortedMap.prototype.get = function(key) {
+SoMap.prototype.get = function(key) {
     var tree = this;
     var node = this.root;
     while (node) {
@@ -145,7 +145,7 @@ SortedMap.prototype.get = function(key) {
     return null;
 }
 
-SortedMap.prototype.forEach = function(callback, thisArg) {
+SoMap.prototype.forEach = function(callback, thisArg) {
     //callback with param: value, key, index, thisArg
     var index = 0;
     var inOrderTraversal = function(node) {
@@ -160,7 +160,7 @@ SortedMap.prototype.forEach = function(callback, thisArg) {
     inOrderTraversal(this.root);
 }
 
-SortedMap.prototype.entries = function() {
+SoMap.prototype.entries = function() {
     var i = 0;
     var entries = [];
     this.forEach(function(value, key) {
@@ -188,7 +188,7 @@ SortedMap.prototype.entries = function() {
     }
 }
 
-SortedMap.prototype.keys = function() {
+SoMap.prototype.keys = function() {
     var i = 0;
     var entries = [];
     this.forEach(function(value, key) {
@@ -216,7 +216,7 @@ SortedMap.prototype.keys = function() {
     }
 }
 
-SortedMap.prototype.values = function() {
+SoMap.prototype.values = function() {
     var i = 0;
     var entries = [];
     this.forEach(function(value, key) {
@@ -244,7 +244,7 @@ SortedMap.prototype.values = function() {
     }
 }
 
-SortedMap.prototype.toString = function() {
+SoMap.prototype.toString = function() {
     var size = this.size;
     var result = this[Symbol.toStringTag] + ' ' + size + ' {';
 
@@ -256,11 +256,11 @@ SortedMap.prototype.toString = function() {
     return result;
 }
 
-SortedMap.prototype.isEmpty = function() {
+SoMap.prototype.isEmpty = function() {
     return this.size == 0;
 }
 
-SortedMap.prototype.min = function() {
+SoMap.prototype.min = function() {
     var node = this.root;
     while (node && node.left) {
         node = node.left;
@@ -275,7 +275,7 @@ SortedMap.prototype.min = function() {
     }
 }
 
-SortedMap.prototype.max = function() {
+SoMap.prototype.max = function() {
     var node = this.root;
     while (node && node.right) {
         node = node.right;
@@ -293,4 +293,4 @@ SortedMap.prototype.max = function() {
 
 
 //exports
-module.exports = SortedMap;
+module.exports = SoMap;
