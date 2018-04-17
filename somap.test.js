@@ -322,41 +322,6 @@ test('construct with array', () => {
         .toBe(makeMapString(DATA_SORTED_ORDER));
 });
 
-test('create, get and remove many', () => {
-    var randomInt = function(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-    var many = 10000;
-    var keys = new Set();
-    map.clear();
-
-    //create
-    for (var i = 0; i < many; i++) {
-        var random = randomInt(0, many);
-        keys.add(random);
-        map.set(random, '' + random + '-value');
-    }
-    console.log('created ' + keys.size + ' entries');
-    expect(map.size)
-        .toBe(keys.size);
-
-    //get
-    keys.forEach(key => {
-        expect(map.get(key))
-            .toBe('' + key + '-value');
-    });
-
-    //delete
-    var size = map.size;
-    keys.forEach(key => {
-        map.delete(key);
-        expect(map.size)
-            .toBe(--size);
-    });
-    expect(map.size)
-        .toBe(0);
-});
-
 test('is empty', () => {
     expect(map.size > 0)
         .toBeTruthy();
@@ -395,4 +360,39 @@ test('max', () => {
 
     expect(map.max())
         .toBeNull();
+});
+
+test('create, get and remove many', () => {
+    var randomInt = function(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    var many = 10000;
+    var keys = new Set();
+    map.clear();
+
+    //create
+    for (var i = 0; i < many; i++) {
+        var random = randomInt(0, many);
+        keys.add(random);
+        map.set(random, '' + random + '-value');
+    }
+    console.log('created ' + keys.size + ' entries');
+    expect(map.size)
+        .toBe(keys.size);
+
+    //get
+    keys.forEach(key => {
+        expect(map.get(key))
+            .toBe('' + key + '-value');
+    });
+
+    //delete
+    var size = map.size;
+    keys.forEach(key => {
+        map.delete(key);
+        expect(map.size)
+            .toBe(--size);
+    });
+    expect(map.size)
+        .toBe(0);
 });
