@@ -1,4 +1,6 @@
-function SortedMap(iterable, comparator) {
+'use strict'
+
+function SoMap(iterable, comparator) {
     this.size = 0;
     this.root = null;
 
@@ -31,32 +33,32 @@ function SortedMap(iterable, comparator) {
     }
 }
 
-SortedMap[Symbol.species] = SortedMap;
+SoMap[Symbol.species] = SoMap;
 
-SortedMap.prototype[Symbol.iterator] = function() {
+SoMap.prototype[Symbol.iterator] = function() {
     return this.entries();
 }
 
-SortedMap.prototype[Symbol.toStringTag] = 'SortedMap';
+SoMap.prototype[Symbol.toStringTag] = 'SoMap';
 
-SortedMap.prototype.set = function(key, value) {
-    var tree = this;
+SoMap.prototype.set = function(key, value) {
+    var map = this;
 
     var insert = function(parent, node) {
         if (parent == null) {
-            //empty tree
-            tree.root = node;
-            tree.size = 1;
-        } else if (tree.compare(parent.key, node.key) == 0) {
+            //empty map
+            map.root = node;
+            map.size = 1;
+        } else if (map.compare(parent.key, node.key) == 0) {
             //same key, replace only value
             parent.value = node.value;
-        } else if (tree.compare(node.key, parent.key) < 0) {
+        } else if (map.compare(node.key, parent.key) < 0) {
             //follow left path
             if (parent.left) {
                 return insert(parent.left, node);
             } else {
                 parent.left = node;
-                tree.size++;
+                map.size++;
             }
         } else {
             //follow right path
@@ -64,19 +66,19 @@ SortedMap.prototype.set = function(key, value) {
                 return insert(parent.right, node);
             } else {
                 parent.right = node;
-                tree.size++;
+                map.size++;
             }
         }
         return node;
     }
 
-    var node = new tree.Node(key, value);
-    insert(tree.root, node);
+    var node = new map.Node(key, value);
+    insert(map.root, node);
 }
 
 
-SortedMap.prototype['delete'] = function(key) {
-    var tree = this;
+SoMap.prototype['delete'] = function(key) {
+    var map = this;
 
     var min = function(node) {
         if (node) {
@@ -91,16 +93,16 @@ SortedMap.prototype['delete'] = function(key) {
 
     var del = function(node, key) {
         if (node) {
-            if (tree.compare(key, node.key) > 0) {
+            if (map.compare(key, node.key) > 0) {
                 node.right = del(node.right, key);
-            } else if (tree.compare(key, node.key) < 0) {
+            } else if (map.compare(key, node.key) < 0) {
                 node.left = del(node.left, key);
-            } else if (tree.compare(key, node.key) == 0) {
+            } else if (map.compare(key, node.key) == 0) {
                 if (!node.left) {
-                    tree.size--;
+                    map.size--;
                     return node.right
                 } else if (!node.right) {
-                    tree.size--;
+                    map.size--;
                     return node.left;
                 } else {
                     var m = min(node.right);
@@ -116,40 +118,45 @@ SortedMap.prototype['delete'] = function(key) {
         }
     }
 
-    tree.root = del(tree.root, key);
+    map.root = del(map.root, key);
 }
 
-SortedMap.prototype.clear = function() {
+SoMap.prototype.clear = function() {
     this.size = 0;
     this.root = null;
 }
 
-SortedMap.prototype.has = function(key) {
+SoMap.prototype.has = function(key) {
     return this.get(key) != null;
 }
 
-SortedMap.prototype.get = function(key) {
-    var tree = this;
+SoMap.prototype.get = function(key) {
+    var map = this;
     var node = this.root;
     while (node) {
-        if (tree.compare(node.key, key) < 0) {
+        if (map.compare(node.key, key) < 0) {
             node = node.right;
-        } else if (tree.compare(node.key, key) > 0) {
+        } else if (map.compare(node.key, key) > 0) {
             node = node.left;
-        } else if (tree.compare(node.key, key) == 0) {
+        } else if (map.compare(node.key, key) == 0) {
             return node.value;
         }
     }
     return null;
 }
 
-SortedMap.prototype.forEach = function(callback, thisArg) {
-    //callback with param: value, key, index, thisArg
+SoMap.prototype.forEach = function(callback, thisArg) {
+    //callback with param: value, key, map, index
     var index = 0;
+    var map = this;
     var inOrderTraversal = function(node) {
         if (node) {
             inOrderTraversal(node.left);
-            callback(node.value, node.key, index, thisArg);
+            if (thisArg) {
+                callback.call(thisArg, node.value, node.key, map, index);
+            } else {
+                callback(node.value, node.key, map, index);
+            }
             index++;
             inOrderTraversal(node.right);
         }
@@ -158,7 +165,7 @@ SortedMap.prototype.forEach = function(callback, thisArg) {
     inOrderTraversal(this.root);
 }
 
-SortedMap.prototype.entries = function() {
+SoMap.prototype.entries = function() {
     var i = 0;
     var entries = [];
     this.forEach(function(value, key) {
@@ -186,7 +193,7 @@ SortedMap.prototype.entries = function() {
     }
 }
 
-SortedMap.prototype.keys = function() {
+SoMap.prototype.keys = function() {
     var i = 0;
     var entries = [];
     this.forEach(function(value, key) {
@@ -214,7 +221,7 @@ SortedMap.prototype.keys = function() {
     }
 }
 
-SortedMap.prototype.values = function() {
+SoMap.prototype.values = function() {
     var i = 0;
     var entries = [];
     this.forEach(function(value, key) {
@@ -242,11 +249,11 @@ SortedMap.prototype.values = function() {
     }
 }
 
-SortedMap.prototype.toString = function() {
+SoMap.prototype.toString = function() {
     var size = this.size;
     var result = this[Symbol.toStringTag] + ' ' + size + ' {';
 
-    this.forEach(function(value, key, i) {
+    this.forEach(function(value, key, map, i) {
         result += ' ' + key + ' => ' + value;
         result += i < size - 1 ? ',' : '';
     });
@@ -254,11 +261,11 @@ SortedMap.prototype.toString = function() {
     return result;
 }
 
-SortedMap.prototype.isEmpty = function() {
+SoMap.prototype.isEmpty = function() {
     return this.size == 0;
 }
 
-SortedMap.prototype.min = function() {
+SoMap.prototype.min = function() {
     var node = this.root;
     while (node && node.left) {
         node = node.left;
@@ -273,7 +280,7 @@ SortedMap.prototype.min = function() {
     }
 }
 
-SortedMap.prototype.max = function() {
+SoMap.prototype.max = function() {
     var node = this.root;
     while (node && node.right) {
         node = node.right;
@@ -286,7 +293,107 @@ SortedMap.prototype.max = function() {
     } else {
         return null;
     }
+
 }
 
+
+function SoSet(iterable, comparator) {
+    this.size = 0;
+    this.somap = new SoMap(null, comparator);
+    if (iterable) {
+        var iterator = iterable[Symbol.iterator]();
+        var next = iterator.next();
+        while (!next.done) {
+            this.add(next.value);
+            next = iterator.next();
+        }
+    }
+}
+
+SoSet[Symbol.species] = SoSet;
+
+SoSet.prototype[Symbol.iterator] = function() {
+    return this.values();
+}
+
+SoSet.prototype[Symbol.toStringTag] = 'SoSet';
+
+SoSet.prototype.add = function(value) {
+    this.somap.set(value, value);
+    this.size = this.somap.size;
+}
+
+SoSet.prototype.clear = function() {
+    this.somap.clear();
+    this.size = this.somap.size;
+}
+
+SoSet.prototype['delete'] = function(value) {
+    this.somap.delete(value);
+    this.size = this.somap.size;
+}
+
+SoSet.prototype.entries = function() {
+    return this.somap.entries();
+}
+
+SoSet.prototype.forEach = function(callback, thisArg) {
+    var set = this;
+    var setCallback = function(value, key, ignore, index) {
+        if (thisArg) {
+            callback.call(thisArg, value, key, set, index);
+        } else {
+            callback(value, key, set, index);
+        }
+    }
+    this.somap.forEach(setCallback, thisArg);
+}
+
+SoSet.prototype.has = function(value) {
+    return this.somap.has(value);
+}
+
+SoSet.prototype.values = function() {
+    return this.somap.values();
+}
+
+SoSet.prototype.toString = function() {
+    var size = this.size;
+    var result = this[Symbol.toStringTag] + ' ' + size + ' {';
+
+    this.forEach(function(value, key, map, i) {
+        result += ' ' + value;
+        result += i < size - 1 ? ',' : '';
+    });
+    result += ' }';
+    return result;
+}
+
+SoSet.prototype.isEmpty = function() {
+    return this.somap.isEmpty();
+}
+
+SoSet.prototype.min = function() {
+    var min = this.somap.min();
+    if (min) {
+        return min.value;
+    } else {
+        return null;
+    }
+}
+
+SoSet.prototype.max = function() {
+    var max = this.somap.max();
+    if (max) {
+        return max.value;
+    } else {
+        return null;
+    }
+}
+
+
 //exports
-module.exports = SortedMap;
+module.exports = {
+    SoMap,
+    SoSet
+};
