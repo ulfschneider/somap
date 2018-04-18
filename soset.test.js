@@ -297,37 +297,3 @@ test('max', () => {
     expect(set.max())
         .toBeNull();
 });
-
-test('create, get and remove many', () => {
-    var randomInt = function(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-    var many = 10000;
-    var keys = new Set();
-    set.clear();
-
-    //create
-    for (var i = 0; i < many; i++) {
-        var random = randomInt(0, many);
-        keys.add(random);
-        set.add(random + '-value');
-    }
-    expect(set.size)
-        .toBe(keys.size);
-
-    //get
-    keys.forEach(key => {
-        expect(set.has(key + '-value'))
-            .toBeTruthy();
-    });
-
-    //delete
-    var size = set.size;
-    keys.forEach(key => {
-        set.delete(key);
-        expect(set.size)
-            .toBe(--size);
-    });
-    expect(set.size)
-        .toBe(0);
-});
