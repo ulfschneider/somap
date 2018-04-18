@@ -146,13 +146,17 @@ SoMap.prototype.get = function(key) {
 }
 
 SoMap.prototype.forEach = function(callback, thisArg) {
-    //callback with param: value, key, index, thisArg
+    //callback with param: value, key, map, index
     var index = 0;
     var map = this;
     var inOrderTraversal = function(node) {
         if (node) {
             inOrderTraversal(node.left);
-            callback(node.value, node.key, map, index, thisArg);
+            if (thisArg) {
+                callback.call(thisArg, node.value, node.key, map, index);
+            } else {
+                callback(node.value, node.key, map, index);
+            }
             index++;
             inOrderTraversal(node.right);
         }
@@ -293,5 +297,103 @@ SoMap.prototype.max = function() {
 }
 
 
+function SoSet(iterable, comparator) {
+    this.size = 0;
+    this.somap = new SoMap(null, comparator);
+    if (iterable) {
+        var iterator = iterable[Symbol.iterator]();
+        var next = iterator.next();
+        while (!next.done) {
+            this.add(next.value);
+            next = iterator.next();
+        }
+    }
+}
+
+SoSet[Symbol.species] = SoSet;
+
+SoSet.prototype[Symbol.iterator] = function() {
+    return this.values();
+}
+
+SoSet.prototype[Symbol.toStringTag] = 'SoSet';
+
+SoSet.prototype.add = function(value) {
+    this.somap.set(value, value);
+    this.size = this.somap.size;
+}
+
+SoSet.prototype.clear = function() {
+    this.somap.clear();
+    this.size = this.somap.size;
+}
+
+SoSet.prototype['delete'] = function(value) {
+    this.somap.delete(value);
+    this.size = this.somap.size;
+}
+
+SoSet.prototype.entries = function() {
+    return this.somap.entries();
+}
+
+SoSet.prototype.forEach = function(callback, thisArg) {
+    var set = this;
+    var setCallback = function(value, key, ignore, index) {
+        if (thisArg) {
+            callback.call(thisArg, value, key, set, index);
+        } else {
+            callback(value, key, set, index);
+        }
+    }
+    this.somap.forEach(setCallback, thisArg);
+}
+
+SoSet.prototype.has = function(value) {
+    return this.somap.has(value);
+}
+
+SoSet.prototype.values = function() {
+    return this.somap.values();
+}
+
+SoSet.prototype.toString = function() {
+    var size = this.size;
+    var result = this[Symbol.toStringTag] + ' ' + size + ' {';
+
+    this.forEach(function(value, key, map, i) {
+        result += ' ' + value;
+        result += i < size - 1 ? ',' : '';
+    });
+    result += ' }';
+    return result;
+}
+
+SoSet.prototype.isEmpty = function() {
+    return this.somap.isEmpty();
+}
+
+SoSet.prototype.min = function() {
+    var min = this.somap.min();
+    if (min) {
+        return min.value;
+    } else {
+        return null;
+    }
+}
+
+SoSet.prototype.max = function() {
+    var max = this.somap.max();
+    if (max) {
+        return max.value;
+    } else {
+        return null;
+    }
+}
+
+
 //exports
-module.exports = SoMap;
+module.exports = {
+    SoMap,
+    SoSet
+};

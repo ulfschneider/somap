@@ -1,4 +1,6 @@
-const SoMap = require('./somap');
+const {
+    SoMap
+} = require('./somap');
 var map = new SoMap();
 
 var DATA_INSERT_ORDER = [
@@ -376,7 +378,6 @@ test('create, get and remove many', () => {
         keys.add(random);
         map.set(random, '' + random + '-value');
     }
-    console.log('created ' + keys.size + ' entries');
     expect(map.size)
         .toBe(keys.size);
 
