@@ -1,5 +1,58 @@
-## A sorted map that is implemented as a binary tree
+## A sorted SoMap and a sorted set, implemented as a binary tree
 
+### Construct a Sorted SoMap
+
+Construct with <code>new SoMap([iterable], [comparator])</code>
+
+<code>iterable</code> - optional
+An Array or other iterable object whose elements are key-value pairs (arrays with two elements, e.g. [[ 1, 'one' ],[ 2, 'two' ]]). Each key-value pair is added to the new Map; null values are treated as undefined.
+
+<code>comparator</code> - optional
+Specifies a function that defines the sort order. If omitted, the contents are sorted according by natural order of the keys.
+
+If a and b are two elements being compared, then:
+
+If <code>comparator(a, b)</code> is less than 0, sort a to an index lower than b, i.e. a comes first.
+If <code>comparator(a, b)</code> returns 0, leave a and b unchanged with respect to each other, but sorted with respect to all different elements. 
+If <code>comparator(a, b)</code> is greater than 0, sort b to an index lower than a, i.e. b comes first.
+<code>comparator(a, b)</code> must always return the same value when given a specific pair of elements a and b as its two arguments. If inconsistent results are returned then the sort order is undefined.
+
+### Sorted Map API
+
+<code>Map.prototype.size</code>
+Returns the number of key/value pairs in the SoMap object.
+
+<code>SoMap.prototype.clear()</code>
+Removes all key/value pairs from the SoMap object.
+
+<code>SoMap.prototype.delete(key)</code>
+Returns true if an element in the SoMap object existed and has been removed, or false if the element does not exist. SoMap.prototype.has(key) will return false afterwards.
+
+<code>SoMap.prototype.entries()</code>
+Returns a new Iterator object that contains an array of [key, value] for each element in the SoMap object in insertion order.
+
+<code>SoMap.prototype.forEach(callbackFn[, thisArg])</code>
+Calls callbackFn once for each key-value pair present in the SoMap object, in insertion order. If a thisArg parameter is provided to forEach, it will be used as the this value for each callback.
+
+<code>SoMap.prototype.get(key)</code>
+Returns the value associated to the key, or undefined if there is none.
+
+<code>SoMap.prototype.has(key)</code>
+Returns a boolean asserting whether a value has been associated to the key in the SoMap object or not.
+
+<code>SoMap.prototype.keys()</code>
+Returns a new Iterator object that contains the keys for each element in the SoMap object in insertion order.
+
+<code>SoMap.prototype.set(key, value)</code>
+Sets the value for the key in the SoMap object. Returns the SoMap object.
+
+<code>SoMap.prototype.values()</code>
+Returns a new Iterator object that contains the values for each element in the SoMap object in insertion order.
+
+<code>SoMap.prototype[@@iterator]()</code>
+Returns a new Iterator object that contains an array of [key, value] for each element in the SoMap object in insertion order.
+
+### Tests
 The tests for this code require `npm` and `Jest` to be installed on the machine. With that, tests will be fired by issuing
 
     npm test
