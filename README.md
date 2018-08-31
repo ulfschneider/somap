@@ -35,7 +35,7 @@ Returns a new Iterator object that contains an array of [key, value] for each el
 Calls callbackFn once for each key-value pair present in the SoMap object, in defined order. If a thisArg parameter is provided to forEach, it will be used as the this value for each callback.
 
 <code>SoMap.prototype.get(key)</code>
-Returns the value associated to the key, or undefined if there is none.
+Returns the value associated to the key, or null if there is none.
 
 <code>SoMap.prototype.has(key)</code>
 Returns a boolean asserting whether a value has been associated to the key in the SoMap object or not.
