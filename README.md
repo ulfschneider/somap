@@ -1,11 +1,11 @@
-## A sorted SoMap and a sorted set, implemented as a binary tree
+## A Sorted Map and a Sorted Set, implemented as a binary tree
 
-### Construct a Sorted SoMap
+### Construct a Sorted Map
 
 Construct with <code>new SoMap([iterable], [comparator])</code> which will be sorted by the keys of the key-value pairs.
 
 <code>iterable</code> - optional
-An Array or other iterable object whose elements are key-value pairs (arrays with two elements, e.g. [[ 1, 'one' ],[ 2, 'two' ]]). Each key-value pair is added to the new Map; null values are treated as undefined.
+An Array or other iterable object whose elements are key-value pairs (arrays with two elements, e.g. \[[ 1, 'one' ],[ 2, 'two' ]]). Each key-value pair is added to the new Map; null values are treated as undefined.
 
 <code>comparator</code> - optional
 Specifies a function that defines the sort order of the keys. If omitted, the contents are sorted according by natural order of the keys.
@@ -13,7 +13,7 @@ Specifies a function that defines the sort order of the keys. If omitted, the co
 If a and b are two elements being compared, then:
 
 If <code>comparator(a, b)</code> is less than 0, sort a to an index lower than b, i.e. a comes first.
-If <code>comparator(a, b)</code> returns 0, leave a and b unchanged with respect to each other, but sorted with respect to all different elements. 
+If <code>comparator(a, b)</code> returns 0, leave a and b unchanged with respect to each other, but sorted with respect to all different elements.
 If <code>comparator(a, b)</code> is greater than 0, sort b to an index lower than a, i.e. b comes first.
 <code>comparator(a, b)</code> must always return the same value when given a specific pair of elements a and b as its two arguments. If inconsistent results are returned then the sort order is undefined.
 
@@ -44,12 +44,12 @@ Returns a boolean asserting whether a value has been associated to the key in th
 Returns a new Iterator object that contains the keys for each element in the SoMap object in defined order.
 
 <code>SoMap.prototype.set(key, value)</code>
-SoSets the value for the key in the SoMap object. Returns the SoMap object.
+Sets the value for the key in the SoMap object. Returns the SoMap object.
 
 <code>SoMap.prototype.values()</code>
 Returns a new Iterator object that contains the values for each element in the SoMap object in defined order.
 
-<code>SoMap.prototype[@@iterator] ()</code>
+<code>SoMap.prototype[@@iterator](<>)</code>
 Returns a new Iterator object that contains an array of [key, value] for each element in the SoMap object in defined order.
 
 <code>SoMap.prototype.min()</code>
@@ -63,7 +63,7 @@ Returns the maximum key-value of the SoMap object
 Construct with <code>new SoSet([iterable], [comparator])</code>
 
 <code>iterable</code> - optional
-An Array or other iterable object whose elements are key-value pairs (arrays with two elements, e.g. [[ 1, 'one' ],[ 2, 'two' ]]). Each key-value pair is added to the new Map; null values are treated as undefined.
+An Array or other iterable object whose elements are key-value pairs (arrays with two elements, e.g. \[[ 1, 'one' ],[ 2, 'two' ]]). Each key-value pair is added to the new Map; null values are treated as undefined.
 
 <code>comparator</code> - optional
 Specifies a function that defines the sort order. If omitted, the contents are sorted according by natural order of the keys.
@@ -71,7 +71,7 @@ Specifies a function that defines the sort order. If omitted, the contents are s
 If a and b are two elements being compared, then:
 
 If <code>comparator(a, b)</code> is less than 0, sort a to an index lower than b, i.e. a comes first.
-If <code>comparator(a, b)</code> returns 0, leave a and b unchanged with respect to each other, but sorted with respect to all different elements. 
+If <code>comparator(a, b)</code> returns 0, leave a and b unchanged with respect to each other, but sorted with respect to all different elements.
 If <code>comparator(a, b)</code> is greater than 0, sort b to an index lower than a, i.e. b comes first.
 <code>comparator(a, b)</code> must always return the same value when given a specific pair of elements a and b as its two arguments. If inconsistent results are returned then the sort order is undefined.
 
@@ -101,7 +101,7 @@ Is the same function as the values() function and returns a new Iterator object 
 <code>SoSet.prototype.values()</code>
 Returns a new Iterator object that contains the values for each element in the SoSet object in defined order.
 
-<code>SoSet.prototype[@@iterator] ()</code>
+<code>SoSet.prototype[@@iterator](<>)</code>
 Returns a new Iterator object that contains the values for each element in the SoSet object in defined order
 
 <code>SoSet.prototype.min()</code>
@@ -111,6 +111,7 @@ Returns the minimum value of the SoSet object
 Returns the maximum value of the SoSet object
 
 ### Tests
+
 The tests for this code require `npm` and `Jest` to be installed on the machine. With that, tests will be fired by issuing
 
     npm test
