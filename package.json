@@ -4,7 +4,8 @@
     "description": "A sorted map, implemented as a binary search tree",
     "main": "somap.js",
     "scripts": {
-        "test": "jest"
+        "test": "jest",
+        "coverage": "jest"
     },
     "jest": {
         "verbose": true,
