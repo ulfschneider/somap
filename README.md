@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.com/ulfschneider/somap.svg?branch=master)](https://travis-ci.com/ulfschneider/somap)
 
+[![Coverage Status](https://coveralls.io/repos/github/ulfschneider/somap/badge.svg?branch=master)](https://coveralls.io/github/ulfschneider/somap?branch=master)
+
 ## A Sorted Map and a Sorted Set, implemented as a binary tree
 
 ### Construct a Sorted Map
