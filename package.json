@@ -5,8 +5,7 @@
     "main": "somap.js",
     "scripts": {
         "test": "jest",
-        "coverage": "jest",
-        "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
+        "coverage": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
     },
     "jest": {
         "verbose": true,
@@ -23,6 +22,7 @@
         "jest": "^22.4.4"
     },
     "dependencies": {
+        "coveralls": "^3.0.2",
         "npm": "^5.8.0"
     }
 }
