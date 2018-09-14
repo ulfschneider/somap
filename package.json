@@ -6,6 +6,10 @@
     "scripts": {
         "test": "jest"
     },
+     "jest": {
+    	"verbose": true,
+    	"testURL": "http://localhost/"
+  	},
     "author": "Ulf Schneider",
     "repository": {
         "type": "git",
