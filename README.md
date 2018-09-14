@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/ulfschneider/somap.svg?branch=master)](https://travis-ci.com/ulfschneider/somap)
+
 ## A Sorted Map and a Sorted Set, implemented as a binary tree
 
 ### Construct a Sorted Map
