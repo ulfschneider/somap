@@ -1,6 +1,7 @@
 const {
     SoMap
-} = require('./somap');
+} = require('somap');
+
 var map = new SoMap();
 
 var DATA_INSERT_ORDER = [

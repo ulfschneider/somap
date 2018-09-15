@@ -2,6 +2,20 @@
 
 ## A Sorted Map and a Sorted Set, implemented as a binary tree
 
+### Usage
+
+Install in your node project with <code>npm i somap</code> and use it inside your code via
+
+<code>
+const {SoMap, SoSet} = require('somap');
+</code>
+
+Alternatively
+
+<code>
+import {SoMap, SoSet} from 'somap';
+</code>
+
 ### Construct a Sorted Map
 
 Construct with <code>new SoMap([iterable], [comparator])</code> which will be sorted by the keys of the key-value pairs.

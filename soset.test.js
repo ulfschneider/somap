@@ -1,6 +1,6 @@
 const {
     SoSet
-} = require('./somap');
+} = require('somap');
 var set = new SoSet();
 
 var DATA_INSERT_ORDER = [
