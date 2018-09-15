@@ -6,15 +6,7 @@
 
 Install in your node project with <code>npm i somap</code> and use it inside your code via
 
-<code>
-const {SoMap, SoSet} = require('somap');
-</code>
-
-Alternatively
-
-<code>
-import {SoMap, SoSet} from 'somap';
-</code>
+<code> const {SoMap, SoSet} = require('somap');</code> or alternatively <code>import {SoMap, SoSet} from 'somap';</code>
 
 ### Construct a Sorted Map
 
