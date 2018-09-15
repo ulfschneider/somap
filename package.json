@@ -1,6 +1,6 @@
 {
     "name": "somap",
-    "version": "0.5.3",
+    "version": "0.5.4",
     "description": "A sorted map, implemented as a binary search tree",
     "main": "somap.js",
     "scripts": {
