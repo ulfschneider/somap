@@ -94,7 +94,7 @@ SoMap.prototype['delete'] = function(key) {
                 node.right = del(node.right, key);
             } else if (map.compare(key, node.key) < 0) {
                 node.left = del(node.left, key);
-            } else if (map.compare(key, node.key) == 0) {
+            } else {
                 if (!node.left) {
                     map.size--;
                     return node.right
@@ -135,7 +135,7 @@ SoMap.prototype.get = function(key) {
             node = node.right;
         } else if (map.compare(node.key, key) > 0) {
             node = node.left;
-        } else if (map.compare(node.key, key) == 0) {
+        } else {
             return node.value;
         }
     }
