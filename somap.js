@@ -81,14 +81,11 @@ SoMap.prototype['delete'] = function(key) {
     var map = this;
 
     var min = function(node) {
-        if (node) {
-            if (node.left) {
-                return min(node.left);
-            } else {
-                return node;
-            }
+        if (node.left) {
+            return min(node.left);
+        } else {
+            return node;
         }
-        return null;
     }
 
     var del = function(node, key) {
@@ -176,10 +173,15 @@ SoMap.prototype.entries = function() {
         next: function() {
             return i < entries.length ? {
                 done: false,
-                value: entries[i++],
+                index: i,
+                value: entries[i++]
             } : {
-                done: true
+                done: true,
+                index: i
             }
+        },
+        index: function() {
+            return i;
         },
         [Symbol.iterator]: function() {
             return this;
@@ -187,7 +189,8 @@ SoMap.prototype.entries = function() {
         return: function() {
             i = entries.length;
             return {
-                done: true
+                done: true,
+                index: i
             }
         }
     }
@@ -204,10 +207,15 @@ SoMap.prototype.keys = function() {
         next: function() {
             return i < entries.length ? {
                 done: false,
-                value: entries[i++],
+                index: i,
+                value: entries[i++]
             } : {
-                done: true
+                done: true,
+                index: i
             }
+        },
+        index: function() {
+            return i;
         },
         [Symbol.iterator]: function() {
             return this;
@@ -215,7 +223,8 @@ SoMap.prototype.keys = function() {
         return: function() {
             i = entries.length;
             return {
-                done: true
+                done: true,
+                index: i
             }
         }
     }
@@ -232,10 +241,15 @@ SoMap.prototype.values = function() {
         next: function() {
             return i < entries.length ? {
                 done: false,
-                value: entries[i++],
+                index: i,
+                value: entries[i++]
             } : {
-                done: true
+                done: true,
+                index: i
             }
+        },
+        index: function() {
+            return i;
         },
         [Symbol.iterator]: function() {
             return this;
@@ -243,7 +257,8 @@ SoMap.prototype.values = function() {
         return: function() {
             i = entries.length;
             return {
-                done: true
+                done: true,
+                index: i
             }
         }
     }

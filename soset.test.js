@@ -23,6 +23,16 @@ var DATA_SORTED_ORDER = [
     'z-value'
 ];
 
+var DATA_REVERSE_ORDER = [
+    'z-value',
+    'y-value',
+    'x-value',
+    'd-value',
+    'c-value',
+    'b-value',
+    'a-value'
+];
+
 //helper
 var makeSetString = function(data) {
     var result = 'SoSet ' + data.length;
@@ -212,12 +222,25 @@ test('iterating for..of set.entries()', () => {
             .toBe(DATA_SORTED_ORDER[i]);
         expect(next.value[1])
             .toBe(DATA_SORTED_ORDER[i]);
+        expect(next.index).toBe(i);
+        expect(iterator.index()).toBe(i + 1);
         i++;
         next = iterator.next();
     }
     expect(i)
         .toBe(DATA_SORTED_ORDER.length);
+    expect(iterator.index()).toBe(set.size);
 
+    iterator = set.entries();
+    i = 0;
+    while ((next = iterator.next()).index < set.size / 2) {
+        i++;
+    }
+    expect(next.index).toBe(i);
+    expect(iterator.index()).toBe(i + 1);
+    iterator.return();
+    expect(iterator.index()).toBe(set.size);
+    expect(iterator.next().done).toBe(true);
 });
 
 test('iterating for..of set.values()', () => {
@@ -236,12 +259,25 @@ test('iterating for..of set.values()', () => {
     while (!next.done) {
         expect(next.value)
             .toBe(DATA_SORTED_ORDER[i]);
+        expect(next.index).toBe(i);
+        expect(iterator.index()).toBe(i + 1);
         i++;
         next = iterator.next();
     }
     expect(i)
         .toBe(DATA_SORTED_ORDER.length);
+    expect(iterator.index()).toBe(set.size);
 
+    iterator = set.values();
+    i = 0;
+    while ((next = iterator.next()).index < set.size / 2) {
+        i++;
+    }
+    expect(next.index).toBe(i);
+    expect(iterator.index()).toBe(i + 1);
+    iterator.return();
+    expect(iterator.index()).toBe(set.size);
+    expect(iterator.next().done).toBe(true);
 });
 
 
@@ -256,12 +292,45 @@ test('forEach', () => {
     });
 });
 
+test('thisArg', function() {
+    function Counter() {
+        this.sum = 0;
+        this.count = 0;
+    }
+    //providing this as a pointer to the Counter object
+    function addThisArg(map, counter) {
+        map.forEach(function(value, key) {
+            this.sum += key;
+            ++this.count;
+        }, counter);
+    };
+
+    var counter = new Counter();
+    addThisArg(new SoSet([2, 5, 9, ]), counter);
+    expect(counter.count).toBe(3);
+    expect(counter.sum).toBe(16);
+});
 
 
 test('construct with array', () => {
     var map = new SoSet(DATA_INSERT_ORDER);
     expect(set.toString())
         .toBe(makeSetString(DATA_SORTED_ORDER));
+});
+
+test('reverse comparator', () => {
+    var reverseSet = new SoSet(DATA_INSERT_ORDER, (a, b) => {
+        if (a < b) {
+            return 1;
+        } else if (a > b) {
+            return -1;
+        } else {
+            return 0;
+        }
+    });
+
+    expect(reverseSet.toString())
+        .toBe(makeSetString(DATA_REVERSE_ORDER));
 });
 
 test('is empty', () => {

@@ -23,6 +23,16 @@ var DATA_SORTED_ORDER = [
     ['z-key', 'z-value']
 ];
 
+var DATA_REVERSE_ORDER = [
+    ['z-key', 'z-value'],
+    ['y-key', 'y-value'],
+    ['x-key', 'x-value'],
+    ['d-key', 'd-value'],
+    ['c-key', 'c-value'],
+    ['b-key', 'b-value'],
+    ['a-key', 'a-value']
+];
+
 //helper
 var makeMapString = function(data) {
     var result = 'SoMap ' + data.length;
@@ -79,6 +89,7 @@ afterEach(() => {
     expect(map.toString())
         .toBe(makeMapString([]));
 });
+
 
 //test the helper functions
 test('make map string', () => {
@@ -250,12 +261,25 @@ test('iterating for..of map.entries()', () => {
             .toBe(DATA_SORTED_ORDER[i][0]);
         expect(next.value[1])
             .toBe(DATA_SORTED_ORDER[i][1]);
+        expect(next.index).toBe(i);
+        expect(iterator.index()).toBe(i + 1);
         i++;
         next = iterator.next();
     }
     expect(i)
         .toBe(DATA_SORTED_ORDER.length);
+    expect(iterator.index()).toBe(map.size);
 
+    iterator = map.entries();
+    i = 0;
+    while ((next = iterator.next()).index < map.size / 2) {
+        i++;
+    }
+    expect(next.index).toBe(i);
+    expect(iterator.index()).toBe(i + 1);
+    iterator.return();
+    expect(iterator.index()).toBe(map.size);
+    expect(iterator.next().done).toBe(true);
 });
 
 test('iterating for..of map.keys()', () => {
@@ -274,12 +298,25 @@ test('iterating for..of map.keys()', () => {
     while (!next.done) {
         expect(next.value)
             .toBe(DATA_SORTED_ORDER[i][0]);
+        expect(next.index).toBe(i);
+        expect(iterator.index()).toBe(i + 1);
         i++;
         next = iterator.next();
     }
     expect(i)
         .toBe(DATA_SORTED_ORDER.length);
+    expect(iterator.index()).toBe(map.size);
 
+    iterator = map.keys();
+    i = 0;
+    while ((next = iterator.next()).index < map.size / 2) {
+        i++;
+    }
+    expect(next.index).toBe(i);
+    expect(iterator.index()).toBe(i + 1);
+    iterator.return();
+    expect(iterator.index()).toBe(map.size);
+    expect(iterator.next().done).toBe(true);
 });
 
 test('iterating for..of map.values()', () => {
@@ -298,11 +335,25 @@ test('iterating for..of map.values()', () => {
     while (!next.done) {
         expect(next.value)
             .toBe(DATA_SORTED_ORDER[i][1]);
+        expect(next.index).toBe(i);
+        expect(iterator.index()).toBe(i + 1);
         i++;
         next = iterator.next();
     }
     expect(i)
         .toBe(DATA_SORTED_ORDER.length);
+    expect(iterator.index()).toBe(map.size);
+
+    iterator = map.values();
+    i = 0;
+    while ((next = iterator.next()).index < map.size / 2) {
+        i++;
+    }
+    expect(next.index).toBe(i);
+    expect(iterator.index()).toBe(i + 1);
+    iterator.return();
+    expect(iterator.index()).toBe(map.size);
+    expect(iterator.next().done).toBe(true);
 });
 
 test('forEach', () => {
@@ -316,12 +367,49 @@ test('forEach', () => {
     });
 });
 
+test('thisArg', function() {
+    function Counter() {
+        this.sum = 0;
+        this.count = 0;
+    }
+    //providing this as a pointer to the Counter object
+    function addThisArg(map, counter) {
+        map.forEach(function(value, key) {
+            this.sum += key;
+            ++this.count;
+        }, counter);
+    };
+
+    var counter = new Counter();
+    addThisArg(new SoMap([
+        [2, 'two'],
+        [5, 'five'],
+        [9, 'nine']
+    ]), counter);
+    expect(counter.count).toBe(3);
+    expect(counter.sum).toBe(16);
+});
 
 
 test('construct with array', () => {
     var map = new SoMap(DATA_INSERT_ORDER);
     expect(map.toString())
         .toBe(makeMapString(DATA_SORTED_ORDER));
+});
+
+test('reverse comparator', () => {
+    var reverseMap = new SoMap(DATA_INSERT_ORDER, (a, b) => {
+        if (a < b) {
+            return 1;
+        } else if (a > b) {
+            return -1;
+        } else {
+            return 0;
+        }
+    });
+
+    expect(reverseMap.toString())
+        .toBe(makeMapString(DATA_REVERSE_ORDER));
 });
 
 test('is empty', () => {
