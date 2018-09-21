@@ -1,21 +1,21 @@
 [![Build Status](https://travis-ci.com/ulfschneider/somap.svg?branch=master)](https://travis-ci.com/ulfschneider/somap) [![Coverage Status](https://coveralls.io/repos/github/ulfschneider/somap/badge.svg?branch=master)](https://coveralls.io/github/ulfschneider/somap?branch=master)
 
-## A Sorted Map and a Sorted Set, implemented as a binary tree
+# A Sorted Map and a Sorted Set, implemented as a binary tree
 
-### Usage
+## Usage
 
 Install in your node project with <code>npm i somap</code> and use it inside your code via
 
 <code> const {SoMap, SoSet} = require('somap');</code> or alternatively <code>import {SoMap, SoSet} from 'somap';</code>
 
-### Construct a Sorted Map
+## Construct a Sorted Map
 
 Construct with <code>new SoMap([iterable], [comparator])</code> which will be sorted by the keys of the key-value pairs.
 
-#### <code>iterable</code> - optional
+### <code>iterable</code> - optional
 An Array or other iterable object whose elements are key-value pairs (arrays with two elements, e.g. \[[ 1, 'one' ],[ 2, 'two' ]]). Each key-value pair is added to the new Map; null values are treated as undefined.
 
-#### <code>comparator</code> - optional
+### <code>comparator</code> - optional
 Specifies a function that defines the sort order of the keys. If omitted, the contents are sorted according by natural order of the keys.
 
 If a and b are two elements being compared, then:
@@ -25,57 +25,57 @@ If <code>comparator(a, b)</code> returns 0, leave a and b unchanged with respect
 If <code>comparator(a, b)</code> is greater than 0, sort b to an index lower than a, i.e. b comes first.
 <code>comparator(a, b)</code> must always return the same value when given a specific pair of elements a and b as its two arguments. If inconsistent results are returned then the sort order is undefined.
 
-### Sorted Map API
+## Sorted Map API
 
 You might refer to [Javascript Map API](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Map) for more context.
 
-#### <code>Map.prototype.size</code>
+### <code>Map.prototype.size</code>
 Returns the number of key/value pairs in the SoMap object.
 
-#### <code>SoMap.prototype.clear()</code>
+### <code>SoMap.prototype.clear()</code>
 Removes all key/value pairs from the SoMap object.
 
-#### <code>SoMap.prototype.delete(key)</code>
+### <code>SoMap.prototype.delete(key)</code>
 Returns true if an element in the SoMap object existed and has been removed, or false if the element does not exist. SoMap.prototype.has(key) will return false afterwards.
 
-#### <code>SoMap.prototype.entries()</code>
+### <code>SoMap.prototype.entries()</code>
 Returns a new Iterator object that contains an array of [key, value] for each element in the SoMap object in defined order.
 
-#### <code>SoMap.prototype.forEach(callbackFn[, thisArg])</code>
+### <code>SoMap.prototype.forEach(callbackFn[, thisArg])</code>
 Calls callbackFn once for each key-value pair present in the SoMap object, in defined order. If a thisArg parameter is provided to forEach, it will be used as the this value for each callback.
 
-#### <code>SoMap.prototype.get(key)</code>
+### <code>SoMap.prototype.get(key)</code>
 Returns the value associated to the key, or null if there is none.
 
-#### <code>SoMap.prototype.has(key)</code>
+### <code>SoMap.prototype.has(key)</code>
 Returns a boolean asserting whether a value has been associated to the key in the SoMap object or not.
 
-#### <code>SoMap.prototype.keys()</code>
+### <code>SoMap.prototype.keys()</code>
 Returns a new Iterator object that contains the keys for each element in the SoMap object in defined order.
 
-#### <code>SoMap.prototype.set(key, value)</code>
+### <code>SoMap.prototype.set(key, value)</code>
 Sets the value for the key in the SoMap object. Returns the SoMap object.
 
-#### <code>SoMap.prototype.values()</code>
+### <code>SoMap.prototype.values()</code>
 Returns a new Iterator object that contains the values for each element in the SoMap object in defined order.
 
-#### <code>SoMap.prototype\[@@iterator\]()</code>
+### <code>SoMap.prototype\[@@iterator\]()</code>
 Returns a new Iterator object that contains an array of [key, value] for each element in the SoMap object in defined order.
 
-#### <code>SoMap.prototype.min()</code>
+### <code>SoMap.prototype.min()</code>
 Returns the minimum key-value pair of the SoMap object
 
-#### <code>SoMap.prototype.max()</code>
+### <code>SoMap.prototype.max()</code>
 Returns the maximum key-value of the SoMap object
 
-### Construct a Sorted Set
+## Construct a Sorted Set
 
 Construct with <code>new SoSet([iterable], [comparator])</code>
 
-#### <code>iterable</code> - optional
+### <code>iterable</code> - optional
 An Array or other iterable object whose elements are key-value pairs (arrays with two elements, e.g. \[[ 1, 'one' ],[ 2, 'two' ]]). Each key-value pair is added to the new Map; null values are treated as undefined.
 
-#### <code>comparator</code> - optional
+### <code>comparator</code> - optional
 Specifies a function that defines the sort order. If omitted, the contents are sorted according by natural order of the keys.
 
 If a and b are two elements being compared, then:
@@ -85,44 +85,44 @@ If <code>comparator(a, b)</code> returns 0, leave a and b unchanged with respect
 If <code>comparator(a, b)</code> is greater than 0, sort b to an index lower than a, i.e. b comes first.
 <code>comparator(a, b)</code> must always return the same value when given a specific pair of elements a and b as its two arguments. If inconsistent results are returned then the sort order is undefined.
 
-### SoSet API
+## SoSet API
 
 You might refer to [Javascript Set API](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Set) for more context.
 
-#### <code>SoSet.prototype.add(value)</code>
+### <code>SoSet.prototype.add(value)</code>
 Appends a new element with the given value to the SoSet object. Returns the SoSet object.
 
-#### <code>SoSet.prototype.clear()</code>
+### <code>SoSet.prototype.clear()</code>
 Removes all elements from the SoSet object.
 
-#### <code>SoSet.prototype.delete(value)</code>
+### <code>SoSet.prototype.delete(value)</code>
 Removes the element associated to the value and returns the value that SoSet.prototype.has(value) would have previously returned. SoSet.prototype.has(value) will return false afterwards.
 
-#### <code>SoSet.prototype.entries()</code>
+### <code>SoSet.prototype.entries()</code>
 Returns a new Iterator object that contains an array of [value, value] for each element in the SoSet object, in defined order. This is kept similar to the Map object, so that each entry has the same value for its key and value here.
 
-#### <code>SoSet.prototype.forEach(callbackFn[, thisArg])</code>
+### <code>SoSet.prototype.forEach(callbackFn[, thisArg])</code>
 Calls callbackFn once for each value present in the SoSet object, in defined order. If a thisArg parameter is provided to forEach, it will be used as the this value for each callback.
 
-#### <code>SoSet.prototype.has(value)</code>
+### <code>SoSet.prototype.has(value)</code>
 Returns a boolean asserting whether an element is present with the given value in the SoSet object or not.
 
-#### <code>SoSet.prototype.keys()</code>
+### <code>SoSet.prototype.keys()</code>
 Is the same function as the values() function and returns a new Iterator object that contains the values for each element in the SoSet object in defined order.
 
-#### <code>SoSet.prototype.values()</code>
+### <code>SoSet.prototype.values()</code>
 Returns a new Iterator object that contains the values for each element in the SoSet object in defined order.
 
-#### <code>SoSet.prototype\[@@iterator\]()</code>
+### <code>SoSet.prototype\[@@iterator\]()</code>
 Returns a new Iterator object that contains the values for each element in the SoSet object in defined order
 
-#### <code>SoSet.prototype.min()</code>
+### <code>SoSet.prototype.min()</code>
 Returns the minimum value of the SoSet object
 
-#### <code>SoSet.prototype.max()</code>
+### <code>SoSet.prototype.max()</code>
 Returns the maximum value of the SoSet object
 
-### Tests
+## Tests
 
 The tests for this code require `npm` and `Jest` to be installed on the machine. With that, tests will be fired by issuing
 
