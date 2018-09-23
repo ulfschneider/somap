@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/ulfschneider/somap.svg?branch=master)](https://travis-ci.com/ulfschneider/somap) [![Coverage Status](https://coveralls.io/repos/github/ulfschneider/somap/badge.svg?branch=master)](https://coveralls.io/github/ulfschneider/somap?branch=master)
+[![Build Status](https://travis-ci.com/ulfschneider/somap.svg?branch=master)](https://travis-ci.com/ulfschneider/somap) [![Coverage Status](https://coveralls.io/repos/github/ulfschneider/somap/badge.svg?branch=master)](https://coveralls.io/github/ulfschneider/somap?branch=master) [![npm version](https://badge.fury.io/js/somap.svg)](https://badge.fury.io/js/somap)
 
 # A Sorted Map and a Sorted Set, implemented as a binary tree
 
