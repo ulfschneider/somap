@@ -1,3 +1,5 @@
+'use babel';
+
 const {
     SoSet
 } = require('somap');
@@ -34,8 +36,8 @@ var DATA_REVERSE_ORDER = [
 ];
 
 //helper
-var makeSetString = function(data) {
-    var result = 'SoSet ' + data.length;
+function makeSetString(data) {
+    let result = 'SoSet ' + data.length;
     result += ' { ';
     data.forEach((entry, i) => {
         result += entry;
@@ -50,9 +52,9 @@ var makeSetString = function(data) {
 }
 
 //helper
-var removeTestData = function(data, value) {
-    var newData = [];
-    for (var entry of data) {
+function removeTestData(data, value) {
+    let newData = [];
+    for (let entry of data) {
         if (entry != value) {
             newData.push(entry);
         }
@@ -64,7 +66,7 @@ var removeTestData = function(data, value) {
 //tests
 
 beforeEach(() => {
-    for (var entry of DATA_INSERT_ORDER) {
+    for (let entry of DATA_INSERT_ORDER) {
         set.add(entry);
     }
 
@@ -138,8 +140,8 @@ test('delete unknown value', () => {
 });
 
 test('delete entire content in order of insertion', () => {
-    var testData = DATA_SORTED_ORDER;
-    for (var entry of DATA_INSERT_ORDER) {
+    let testData = DATA_SORTED_ORDER;
+    for (let entry of DATA_INSERT_ORDER) {
         set.delete(entry);
         testData = removeTestData(testData, entry);
         expect(set.toString())
@@ -148,8 +150,8 @@ test('delete entire content in order of insertion', () => {
 });
 
 test('delete entire content in order', () => {
-    var testData = DATA_SORTED_ORDER;
-    for (var entry of DATA_SORTED_ORDER) {
+    let testData = DATA_SORTED_ORDER;
+    for (let entry of DATA_SORTED_ORDER) {
         set.delete(entry);
         testData = removeTestData(testData, entry);
         expect(set.toString())
@@ -158,9 +160,9 @@ test('delete entire content in order', () => {
 });
 
 test('delete entire content in reverse order', () => {
-    var reverseOrder = DATA_SORTED_ORDER.slice(0);
-    var testData = DATA_SORTED_ORDER;
-    for (var entry of reverseOrder) {
+    let reverseOrder = DATA_SORTED_ORDER.slice(0);
+    let testData = DATA_SORTED_ORDER;
+    for (let entry of reverseOrder) {
         set.delete(entry);
         testData = removeTestData(testData, entry);
         expect(set.toString())
@@ -175,12 +177,12 @@ test('double assign a', () => {
 });
 
 test('successful has', () => {
-    for (var entry of DATA_SORTED_ORDER) {
+    for (let entry of DATA_SORTED_ORDER) {
         expect(set.has(entry))
             .toBeTruthy();
     }
 
-    for (var entry of DATA_INSERT_ORDER) {
+    for (let entry of DATA_INSERT_ORDER) {
         expect(set.has(entry))
             .toBeTruthy();
     }
@@ -192,8 +194,8 @@ test('unsuccessful has', () => {
 });
 
 test('iterating for..of set', () => {
-    var i = 0;
-    for (var entry of set) {
+    let i = 0;
+    for (let entry of set) {
         expect(entry)
             .toBe(DATA_SORTED_ORDER[i]);
         i++;
@@ -203,8 +205,8 @@ test('iterating for..of set', () => {
 });
 
 test('iterating for..of set.entries()', () => {
-    var i = 0;
-    for (var entry of set.entries()) {
+    let i = 0;
+    for (let entry of set.entries()) {
         expect(entry[0])
             .toBe(DATA_SORTED_ORDER[i]);
         expect(entry[1])
@@ -215,8 +217,8 @@ test('iterating for..of set.entries()', () => {
         .toBe(DATA_SORTED_ORDER.length);
 
     i = 0;
-    var iterator = set.entries();
-    var next = iterator.next();
+    let iterator = set.entries();
+    let next = iterator.next();
     while (!next.done) {
         expect(next.value[0])
             .toBe(DATA_SORTED_ORDER[i]);
@@ -244,8 +246,8 @@ test('iterating for..of set.entries()', () => {
 });
 
 test('iterating for..of set.values()', () => {
-    var i = 0;
-    for (var entry of set.values()) {
+    let i = 0;
+    for (let entry of set.values()) {
         expect(entry)
             .toBe(DATA_SORTED_ORDER[i]);
         i++;
@@ -254,8 +256,8 @@ test('iterating for..of set.values()', () => {
         .toBe(DATA_SORTED_ORDER.length);
 
     i = 0;
-    var iterator = set.values();
-    var next = iterator.next();
+    let iterator = set.values();
+    let next = iterator.next();
     while (!next.done) {
         expect(next.value)
             .toBe(DATA_SORTED_ORDER[i]);
@@ -292,34 +294,34 @@ test('forEach', () => {
     });
 });
 
-test('thisArg', function() {
+test('thisArg', function () {
     function Counter() {
         this.sum = 0;
         this.count = 0;
     }
     //providing this as a pointer to the Counter object
     function addThisArg(map, counter) {
-        map.forEach(function(value, key) {
+        map.forEach(function (value, key) {
             this.sum += key;
             ++this.count;
         }, counter);
     };
 
-    var counter = new Counter();
-    addThisArg(new SoSet([2, 5, 9, ]), counter);
+    let counter = new Counter();
+    addThisArg(new SoSet([2, 5, 9,]), counter);
     expect(counter.count).toBe(3);
     expect(counter.sum).toBe(16);
 });
 
 
 test('construct with array', () => {
-    var map = new SoSet(DATA_INSERT_ORDER);
+    let map = new SoSet(DATA_INSERT_ORDER);
     expect(set.toString())
         .toBe(makeSetString(DATA_SORTED_ORDER));
 });
 
 test('reverse comparator', () => {
-    var reverseSet = new SoSet(DATA_INSERT_ORDER, (a, b) => {
+    let reverseSet = new SoSet(DATA_INSERT_ORDER, (a, b) => {
         if (a < b) {
             return 1;
         } else if (a > b) {

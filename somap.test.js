@@ -1,3 +1,5 @@
+'use babel';
+
 const {
     SoMap
 } = require('somap');
@@ -35,8 +37,8 @@ var DATA_REVERSE_ORDER = [
 ];
 
 //helper
-var makeMapString = function(data) {
-    var result = 'SoMap ' + data.length;
+function makeMapString(data) {
+    let result = 'SoMap ' + data.length;
     result += ' { ';
     data.forEach((entry, i) => {
         result += entry[0] + ' => ' + entry[1];
@@ -51,9 +53,9 @@ var makeMapString = function(data) {
 }
 
 //helper
-var removeTestData = function(data, key) {
-    var newData = [];
-    for (var entry of data) {
+function removeTestData(data, key) {
+    let newData = [];
+    for (let entry of data) {
         if (entry[0] != key) {
             newData.push(entry);
         }
@@ -62,9 +64,9 @@ var removeTestData = function(data, key) {
 }
 
 //helper
-var changeTestData = function(data, key, value) {
-    var newData = [];
-    for (var entry of data) {
+function changeTestData(data, key, value) {
+    let newData = [];
+    for (let entry of data) {
         if (entry[0] == key) {
             newData.push([key, value]);
         } else {
@@ -77,7 +79,7 @@ var changeTestData = function(data, key, value) {
 //tests
 
 beforeEach(() => {
-    for (var entry of DATA_INSERT_ORDER) {
+    for (let entry of DATA_INSERT_ORDER) {
         map.set(entry[0], entry[1]);
     }
 
@@ -156,8 +158,8 @@ test('delete unknown key', () => {
 });
 
 test('delete entire content in order of insertion', () => {
-    var testData = DATA_SORTED_ORDER;
-    for (var entry of DATA_INSERT_ORDER) {
+    let testData = DATA_SORTED_ORDER;
+    for (let entry of DATA_INSERT_ORDER) {
         map.delete(entry[0]);
         testData = removeTestData(testData, entry[0]);
         expect(map.toString())
@@ -166,8 +168,8 @@ test('delete entire content in order of insertion', () => {
 });
 
 test('delete entire content in order', () => {
-    var testData = DATA_SORTED_ORDER;
-    for (var entry of DATA_SORTED_ORDER) {
+    let testData = DATA_SORTED_ORDER;
+    for (let entry of DATA_SORTED_ORDER) {
         map.delete(entry[0]);
         testData = removeTestData(testData, entry[0]);
         expect(map.toString())
@@ -176,9 +178,9 @@ test('delete entire content in order', () => {
 });
 
 test('delete entire content in reverse order', () => {
-    var reverseOrder = DATA_SORTED_ORDER.slice(0);
-    var testData = DATA_SORTED_ORDER;
-    for (var entry of reverseOrder) {
+    let reverseOrder = DATA_SORTED_ORDER.slice(0);
+    let testData = DATA_SORTED_ORDER;
+    for (let entry of reverseOrder) {
         map.delete(entry[0]);
         testData = removeTestData(testData, entry[0]);
         expect(map.toString())
@@ -196,12 +198,12 @@ test('double assign a', () => {
 });
 
 test('successful has', () => {
-    for (var entry of DATA_SORTED_ORDER) {
+    for (let entry of DATA_SORTED_ORDER) {
         expect(map.has(entry[0]))
             .toBeTruthy();
     }
 
-    for (var entry of DATA_INSERT_ORDER) {
+    for (let entry of DATA_INSERT_ORDER) {
         expect(map.has(entry[0]))
             .toBeTruthy();
     }
@@ -213,12 +215,12 @@ test('unsuccessful has', () => {
 });
 
 test('successful get', () => {
-    for (var entry of DATA_SORTED_ORDER) {
+    for (let entry of DATA_SORTED_ORDER) {
         expect(map.get(entry[0]))
             .toBe(entry[1]);
     }
 
-    for (var entry of DATA_INSERT_ORDER) {
+    for (let entry of DATA_INSERT_ORDER) {
         expect(map.get(entry[0]))
             .toBe(entry[1]);
     }
@@ -230,8 +232,8 @@ test('unsuccessful get', () => {
 });
 
 test('iterating for..of map', () => {
-    var i = 0;
-    for (var entry of map) {
+    let i = 0;
+    for (let entry of map) {
         expect(entry[0])
             .toBe(DATA_SORTED_ORDER[i][0]);
         expect(entry[1])
@@ -243,8 +245,8 @@ test('iterating for..of map', () => {
 });
 
 test('iterating for..of map.entries()', () => {
-    var i = 0;
-    for (var entry of map.entries()) {
+    let i = 0;
+    for (let entry of map.entries()) {
         expect(entry[0])
             .toBe(DATA_SORTED_ORDER[i][0]);
         expect(entry[1])
@@ -255,8 +257,8 @@ test('iterating for..of map.entries()', () => {
         .toBe(DATA_SORTED_ORDER.length);
 
     i = 0;
-    var iterator = map.entries();
-    var next = iterator.next();
+    let iterator = map.entries();
+    let next = iterator.next();
     while (!next.done) {
         expect(next.value[0])
             .toBe(DATA_SORTED_ORDER[i][0]);
@@ -284,8 +286,8 @@ test('iterating for..of map.entries()', () => {
 });
 
 test('iterating for..of map.keys()', () => {
-    var i = 0;
-    for (var entry of map.keys()) {
+    let i = 0;
+    for (let entry of map.keys()) {
         expect(entry)
             .toBe(DATA_SORTED_ORDER[i][0]);
         i++;
@@ -294,8 +296,8 @@ test('iterating for..of map.keys()', () => {
         .toBe(DATA_SORTED_ORDER.length);
 
     i = 0;
-    var iterator = map.keys();
-    var next = iterator.next();
+    let iterator = map.keys();
+    let next = iterator.next();
     while (!next.done) {
         expect(next.value)
             .toBe(DATA_SORTED_ORDER[i][0]);
@@ -321,8 +323,8 @@ test('iterating for..of map.keys()', () => {
 });
 
 test('iterating for..of map.values()', () => {
-    var i = 0;
-    for (var entry of map.values()) {
+    let i = 0;
+    for (let entry of map.values()) {
         expect(entry)
             .toBe(DATA_SORTED_ORDER[i][1]);
         i++;
@@ -331,8 +333,8 @@ test('iterating for..of map.values()', () => {
         .toBe(DATA_SORTED_ORDER.length);
 
     i = 0;
-    var iterator = map.values();
-    var next = iterator.next();
+    let iterator = map.values();
+    let next = iterator.next();
     while (!next.done) {
         expect(next.value)
             .toBe(DATA_SORTED_ORDER[i][1]);
@@ -368,20 +370,20 @@ test('forEach', () => {
     });
 });
 
-test('thisArg', function() {
+test('thisArg', function () {
     function Counter() {
         this.sum = 0;
         this.count = 0;
     }
     //providing this as a pointer to the Counter object
     function addThisArg(map, counter) {
-        map.forEach(function(value, key) {
+        map.forEach(function (value, key) {
             this.sum += key;
             ++this.count;
         }, counter);
     };
 
-    var counter = new Counter();
+    let counter = new Counter();
     addThisArg(new SoMap([
         [2, 'two'],
         [5, 'five'],
@@ -393,13 +395,13 @@ test('thisArg', function() {
 
 
 test('construct with array', () => {
-    var map = new SoMap(DATA_INSERT_ORDER);
+    let map = new SoMap(DATA_INSERT_ORDER);
     expect(map.toString())
         .toBe(makeMapString(DATA_SORTED_ORDER));
 });
 
 test('reverse comparator', () => {
-    var reverseMap = new SoMap(DATA_INSERT_ORDER, (a, b) => {
+    let reverseMap = new SoMap(DATA_INSERT_ORDER, (a, b) => {
         if (a < b) {
             return 1;
         } else if (a > b) {
@@ -454,16 +456,16 @@ test('max', () => {
 });
 
 test('create, get and remove many', () => {
-    var randomInt = function(min, max) {
+    let randomInt = function (min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-    var many = 10000;
-    var keys = new Set();
+    let many = 10000;
+    let keys = new Set();
     map.clear();
 
     //create
-    for (var i = 0; i < many; i++) {
-        var random = randomInt(0, many);
+    for (let i = 0; i < many; i++) {
+        let random = randomInt(0, many);
         keys.add(random);
         map.set(random, '' + random + '-value');
     }
@@ -477,7 +479,7 @@ test('create, get and remove many', () => {
     });
 
     //delete
-    var size = map.size;
+    let size = map.size;
     keys.forEach(key => {
         map.delete(key);
         expect(map.size)

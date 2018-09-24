@@ -27,7 +27,7 @@ If <code>comparator(a, b)</code> is greater than 0, sort b to an index lower tha
 
 ## Sorted Map API
 
-You might refer to [Javascript Map API](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Map) for more context.
+You may want to refer to [Javascript Map API](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Map) for more context.
 
 ### <code>Map.prototype.size</code>
 Returns the number of key/value pairs in the SoMap object.
@@ -73,10 +73,10 @@ Returns the maximum key-value of the SoMap object
 Construct with <code>new SoSet([iterable], [comparator])</code>
 
 ### <code>iterable</code> - optional
-An Array or other iterable object whose elements are key-value pairs (arrays with two elements, e.g. \[[ 1, 'one' ],[ 2, 'two' ]]). Each key-value pair is added to the new Map; null values are treated as undefined.
+An Array or other iterable object whose elements values. Each value is added to the new set; null values are treated as undefined.
 
 ### <code>comparator</code> - optional
-Specifies a function that defines the sort order. If omitted, the contents are sorted according by natural order of the keys.
+Specifies a function that defines the sort order. If omitted, the contents are sorted according by natural order of the values.
 
 If a and b are two elements being compared, then:
 
@@ -87,7 +87,7 @@ If <code>comparator(a, b)</code> is greater than 0, sort b to an index lower tha
 
 ## SoSet API
 
-You might refer to [Javascript Set API](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Set) for more context.
+You may want to refer to [Javascript Set API](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Set) for more context.
 
 ### <code>SoSet.prototype.add(value)</code>
 Appends a new element with the given value to the SoSet object. Returns the SoSet object.
@@ -106,9 +106,6 @@ Calls callbackFn once for each value present in the SoSet object, in defined ord
 
 ### <code>SoSet.prototype.has(value)</code>
 Returns a boolean asserting whether an element is present with the given value in the SoSet object or not.
-
-### <code>SoSet.prototype.keys()</code>
-Is the same function as the values() function and returns a new Iterator object that contains the values for each element in the SoSet object in defined order.
 
 ### <code>SoSet.prototype.values()</code>
 Returns a new Iterator object that contains the values for each element in the SoSet object in defined order.
