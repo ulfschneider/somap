@@ -2,7 +2,10 @@
     "name": "somap",
     "version": "0.5.7",
     "description": "A sorted map, implemented as a binary search tree",
-    "keywords": ["sorted", "map"],
+    "keywords": [
+        "sorted",
+        "map"
+    ],
     "main": "somap.js",
     "scripts": {
         "test": "jest",
@@ -24,6 +27,6 @@
         "coveralls": "^3.0.2"
     },
     "dependencies": {
-        "npm": "^5.8.0"
+        "npm": "^6.4.1"
     }
 }
