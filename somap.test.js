@@ -455,6 +455,14 @@ test('max', () => {
         .toBeNull();
 });
 
+test('different key types', () => {
+    map.clear();
+    map.set(1, '1-value');
+    expect(() => {
+        map.set('1', '1-value')
+    }).toThrow();
+});
+
 test('create, get and remove many', () => {
     let randomInt = function (min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;

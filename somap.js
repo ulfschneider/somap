@@ -22,15 +22,24 @@ function SoMap(iterable, comparator) {
     this.size = 0;
     this.root = null;
 
+    const checkSameType = function (a, b) {
+        if (typeof a !== typeof b) {
+            throw Error('The two keys are not of the same type: ' + a + '=[' + (typeof a) + '] ' + b + '=[' + (typeof b) + ']');
+        }
+    }
+
     this.compare = function (a, b) {
         if (comparator) {
             return comparator(a, b);
-        } else if (a < b) {
-            return -1;
-        } else if (a > b) {
-            return 1;
         } else {
-            return 0;
+            checkSameType(a, b);
+            if (a < b) {
+                return -1;
+            } else if (a > b) {
+                return 1;
+            } else {
+                return 0;
+            }
         }
     }
 
