@@ -461,6 +461,17 @@ test('different key types', () => {
     expect(() => {
         map.set('1', '1-value')
     }).toThrow();
+
+    map.set(null, 'null value');
+    expect(map.size).toEqual(1);
+    expect(map.toString()).toBe('SoMap 1 { 1 => 1-value }');
+
+    map.set(undefined, 'undefined value');
+    expect(map.size).toEqual(1);
+    expect(map.toString()).toBe('SoMap 1 { 1 => 1-value }');
+
+    expect(map.get(undefined)).toBeNull();
+    expect(map.get(null)).toBeNull();
 });
 
 test('create, get and remove many', () => {

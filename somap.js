@@ -31,13 +31,14 @@ function SoMap(iterable, comparator) {
     this.compare = function (a, b) {
         if (comparator) {
             return comparator(a, b);
-        } else {
+        } else if (a !== null && b !== null && a !== undefined && b !== undefined) {
             checkSameType(a, b);
+
             if (a < b) {
                 return -1;
             } else if (a > b) {
                 return 1;
-            } else {
+            } else if (a == b) {
                 return 0;
             }
         }
@@ -97,7 +98,7 @@ SoMap.prototype.set = function (key, value) {
                 parent.left = node;
                 map.size++;
             }
-        } else {
+        } else if (map.compare(node.key, parent.key) > 0) {
             //follow right path
             if (parent.right) {
                 return insert(parent.right, node);
@@ -136,7 +137,7 @@ SoMap.prototype['delete'] = function (key) {
                 node.right = del(node.right, key);
             } else if (map.compare(key, node.key) < 0) {
                 node.left = del(node.left, key);
-            } else {
+            } else if (map.compare(key, node.key) == 0) {
                 if (!node.left) {
                     map.size--;
                     return node.right
@@ -188,8 +189,10 @@ SoMap.prototype.get = function (key) {
             node = node.right;
         } else if (map.compare(node.key, key) > 0) {
             node = node.left;
-        } else {
+        } else if (map.compare(node.key, key) == 0) {
             return node.value;
+        } else {
+            return null;
         }
     }
     return null;
