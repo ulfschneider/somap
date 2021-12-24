@@ -1,6 +1,6 @@
 {
     "name": "somap",
-    "version": "0.5.12",
+    "version": "0.5.14",
     "description": "A sorted map, implemented as a binary search tree",
     "keywords": [
         "sorted",
@@ -21,13 +21,13 @@
         "type": "git",
         "url": "git+https://github.com/ulfschneider/somap.git"
     },
-    "homepage": "https://ulf.codes/somap",
+    "homepage": "https://ulf.codes/tools/somap",
     "license": "MIT",
     "devDependencies": {
         "coveralls": "^3.0.2",
-        "jest": "^24.8.0"
+        "jest": "^27.4.5"
     },
     "dependencies": {
-        "npm": "^6.10.3"
+        "npm": "^8.3.0"
     }
 }
