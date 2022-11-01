@@ -1,6 +1,6 @@
 {
     "name": "somap",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "description": "A sorted map, implemented as a binary search tree",
     "keywords": [
         "sorted",
