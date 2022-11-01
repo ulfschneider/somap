@@ -1,4 +1,5 @@
 'use babel';
+'use strict';
 
 /**
  * @constructor
@@ -19,6 +20,9 @@
  * If inconsistent results are returned then the sort order is undefined.
  */
 function SoMap(iterable, comparator) {
+    if (!(this instanceof SoMap)) {
+        return new SoMap(iterable, comparator);
+    }
     this.size = 0;
     this.root = null;
 
@@ -416,6 +420,9 @@ SoMap.prototype.max = function () {
  * If inconsistent results are returned then the sort order is undefined.
  */
 function SoSet(iterable, comparator) {
+    if (!(this instanceof SoSet)) {
+        return new SoSet(iterable, comparator);
+    }
     this.size = 0;
     this.somap = new SoMap(null, comparator);
     if (iterable) {
